@@ -1,0 +1,9 @@
+.board {
+  height: 90%;
+
+  .procedures-container {
+    height: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+}

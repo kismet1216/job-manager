@@ -1,0 +1,10 @@
+.procedure {
+  width: 300px;
+  height: 600px;
+
+  .procedure-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
