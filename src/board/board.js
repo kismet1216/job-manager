@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './card/card';
+import Procedure from './procedure/procedure';
 
 export default class Board extends React.Component {
   constructor(props) {
@@ -12,13 +12,13 @@ export default class Board extends React.Component {
     return (
       <div className="row">
         <div className="col">
-          <Card />
+          <Procedure />
         </div>
         <div className="col">
-          <Card />
+          <Procedure />
         </div>
         <div className="col">
-          <Card />
+          <Procedure />
         </div>
       </div>
     );

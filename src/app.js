@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import './app.css';
+import './app.scss';
 import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom';
 import Board from './board/board';
 
