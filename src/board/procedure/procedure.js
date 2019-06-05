@@ -23,15 +23,14 @@ export default class Procedure extends React.Component {
     return (
       <div className="procedure border rounded text-center">
         <div className="procedure-header">
-          <button className="btn btn-link">&lt;</button>
+          <button className="btn btn-link"><i className="fa fa-plus"/></button>
           {this.props.info.title}
-          <button className="btn btn-link">&gt;</button>
+          <button className="btn btn-link"><i className="fa fa-bars"/></button>
         </div>
 
         {this.state.cards.map(card =>
           <Card info={card} key={card.id} />
         )}
-        <button className="btn btn-link">添加</button>
       </div>
     );
   }
