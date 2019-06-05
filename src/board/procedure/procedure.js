@@ -13,8 +13,8 @@ export default class Procedure extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(END_POINT + 'procedure/1').then(cards => {
-      this.setState({cards});
+    axios.get(END_POINT + 'procedure/' + this.props.id).then(cards => {
+      this.setState({cards: cards});
     });
   }
 
