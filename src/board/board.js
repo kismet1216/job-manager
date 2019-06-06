@@ -1,7 +1,7 @@
 import React from 'react';
 import Procedure from './procedure/procedure';
 import axios from 'axios';
-import { END_POINT } from '../constants/constants';
+import { END_POINT } from '../constants';
 import './board.scss';
 
 export default class Board extends React.Component {

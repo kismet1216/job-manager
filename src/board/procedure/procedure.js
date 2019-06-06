@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './card/card';
 import axios from 'axios';
-import { END_POINT } from '../../constants/constants';
+import { END_POINT } from '../../constants';
 import './procedure.scss';
 
 export default class Procedure extends React.Component {
