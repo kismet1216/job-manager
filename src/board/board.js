@@ -9,7 +9,7 @@ export default class Board extends React.Component {
     super(props);
 
     this.state = {
-      procedures: [{ id: '1' }, { id: '2' }, { id: '3' }]
+      procedures: []
     };
   }
 
@@ -24,8 +24,8 @@ export default class Board extends React.Component {
       <div className="board container-fluid">
         <div className="procedures-container">
           {this.state.procedures.map(p => (
-            <div className="mr-5 d-inline-block">
-              <Procedure key={p.id} info={p} />
+            <div key={p.id} className="mr-5 d-inline-block">
+              <Procedure info={p} />
             </div>
           ))}
         </div>
