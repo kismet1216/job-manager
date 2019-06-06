@@ -1,37 +1,43 @@
 import React from 'react';
 import Card from './card/card';
-import axios from 'axios';
-import { END_POINT } from '../../constants';
 import './procedure.scss';
 
 export default class Procedure extends React.Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      cards: []
-    }
-  }
+		this.drop = this.drop.bind(this);
+	}
 
-  componentDidMount() {
-    axios.get(END_POINT + 'procedure/' + this.props.info.id).then(res => {
-      this.setState({ cards: res.data });
-    });
-  }
+	componentDidMount() {
+	}
 
-  render() {
-    return (
-      <div className="procedure border rounded text-center">
-        <div className="procedure-header">
-          <button className="btn btn-link"><i className="fa fa-plus"/></button>
-          {this.props.info.title}
-          <button className="btn btn-link"><i className="fa fa-bars"/></button>
-        </div>
+	allowDrop(e) {
+		e.preventDefault();
+	}
 
-        {this.state.cards.map(card =>
-          <Card info={card} key={card.id} />
-        )}
-      </div>
-    );
-  }
+	drop(e) {
+		e.preventDefault();
+		const cardId = e.dataTransfer.getData('text/plain');
+		this.props.onDrop(cardId, this.props.info.id);
+	}
+
+	render() {
+		const {title, cards} = this.props.info;
+		return (
+			<div className="procedure border rounded text-center">
+				<div className="procedure-header">
+					<button className="btn btn-link"><i className="fa fa-plus" /></button>
+					{title}
+					<button className="btn btn-link"><i className="fa fa-bars" /></button>
+				</div>
+
+				<div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
+					{(cards || []).map(card =>
+						<Card info={card} key={card.id} />
+					)}
+				</div>
+			</div>
+		);
+	}
 }
