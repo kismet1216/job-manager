@@ -1,7 +1,14 @@
 import React from 'react';
 import Card from './card/card';
+import Modal from '../../shared/modal/modal';
 import './procedure.scss';
 
+/**
+ * props: {
+ *  info: any,
+ *  onDrop()
+ * }
+ */
 export default class Procedure extends React.Component {
 	constructor(props) {
 		super(props);
@@ -19,6 +26,7 @@ export default class Procedure extends React.Component {
 	drop(e) {
 		e.preventDefault();
 		const cardId = e.dataTransfer.getData('text/plain');
+    // leverage logic to parent
 		this.props.onDrop(cardId, this.props.info.id);
 	}
 
@@ -37,6 +45,8 @@ export default class Procedure extends React.Component {
 						<Card info={card} key={card.id} />
 					)}
 				</div>
+
+        <Modal show={true}>sdf</Modal>
 			</div>
 		);
 	}

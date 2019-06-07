@@ -24,17 +24,20 @@ export default class Board extends React.Component {
 
   addCardById(oldCardId, currentProcedureId) {
     this.setState(
+      // immer's usage in setState
       produce(prevState => {
         const procedures = prevState.procedures;
         let foundCard;
 	      for (let i = 0; i < procedures.length; i++) {
+          // loop this procedure's cards list
 	        foundCard = procedures[i].cards.find(card => card.id === oldCardId);
 	        if (foundCard) {
+            // if found, delete this card from its list
 		        procedures[i].cards = procedures[i].cards.filter(card => card.id !== oldCardId);
 	          break;
           }
 	      }
-
+        // find dest procedure and add card to it
 	      const currProcedure = procedures.find(p => p.id === currentProcedureId);
 	      currProcedure.cards.push(foundCard);
       })
