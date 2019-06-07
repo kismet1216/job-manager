@@ -6,48 +6,57 @@ import './procedure.scss';
 /**
  * props: {
  *  info: any,
- *  onDrop()
+ *  onDrop: () => {}
  * }
  */
 export default class Procedure extends React.Component {
-	constructor(props) {
-		super(props);
+  constructor(props) {
+    super(props);
 
-		this.drop = this.drop.bind(this);
-	}
+    this.state = {
+      showModal: false
+    }
 
-	componentDidMount() {
-	}
+    this.drop = this.drop.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+  }
 
-	allowDrop(e) {
-		e.preventDefault();
-	}
+  componentDidMount() {
+  }
 
-	drop(e) {
-		e.preventDefault();
-		const cardId = e.dataTransfer.getData('text/plain');
+  allowDrop(e) {
+    e.preventDefault();
+  }
+
+  drop(e) {
+    e.preventDefault();
+    const cardId = e.dataTransfer.getData('text/plain');
     // leverage logic to parent
-		this.props.onDrop(cardId, this.props.info.id);
-	}
+    this.props.onDrop(cardId, this.props.info.id);
+  }
 
-	render() {
-		const {title, cards} = this.props.info;
-		return (
-			<div className="procedure border rounded text-center">
-				<div className="procedure-header">
-					<button className="btn btn-link"><i className="fa fa-plus" /></button>
-					{title}
-					<button className="btn btn-link"><i className="fa fa-bars" /></button>
-				</div>
+  toggleModal(open) {
+    return () => this.setState({ showModal: open });
+  }
 
-				<div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
-					{(cards || []).map(card =>
-						<Card info={card} key={card.id} />
-					)}
-				</div>
+  render() {
+    const { title, cards } = this.props.info;
+    return (
+      <div className="procedure border rounded text-center">
+        <div className="d-flex justify-content-between align-items-center">
+          <button className="btn btn-link"><i className="fa fa-plus" /></button>
+          {title}
+          <button className="btn btn-link"><i className="fa fa-bars" /></button>
+        </div>
 
-        <Modal show={true}>sdf</Modal>
-			</div>
-		);
-	}
+        <div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
+          {(cards || []).map(card =>
+            <Card info={card} key={card.id} onClick={this.toggleModal(true)} />
+          )}
+        </div>
+
+        <Modal show={this.state.showModal} title="详情" onClose={this.toggleModal(false)}>sdf</Modal>
+      </div>
+    );
+  }
 }
