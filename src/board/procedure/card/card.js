@@ -1,12 +1,12 @@
 import React from 'react';
 
-export default ({info}) => {
+export default ({info, onClick}) => {
 	function dragStart(e) {
 		e.dataTransfer.setData('text/plain', e.target.id);
 	}
 
 	return (
-		<div className="card m-1" draggable="true" onDragStart={dragStart} id={info.id}>
+		<div className="card m-1" draggable="true" onDragStart={dragStart} id={info.id} onClick={onClick}>
 			<div className="card-body">
 				<h5 className="card-title">{info.dest}</h5>
 				<h6 className="card-subtitle mb-2 text-muted">{info.pos} {info.date}</h6>
