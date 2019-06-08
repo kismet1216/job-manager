@@ -14,9 +14,6 @@ class Modal extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-    }
-
     this.close = this.close.bind(this);
     this.onClickBackground = this.onClickBackground.bind(this);
   }
@@ -27,7 +24,7 @@ class Modal extends React.Component {
 
   onClickBackground(event) {
     // if clicked elm is 'cover' itself, do close, otherwise ignore
-    if(event.target === event.currentTarget) {
+    if (event.target === event.currentTarget) {
       this.close();
     }
   }

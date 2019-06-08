@@ -15,7 +15,7 @@ export default class Procedure extends React.Component {
 
     this.state = {
       showModal: false
-    }
+    };
 
     this.drop = this.drop.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
@@ -36,11 +36,11 @@ export default class Procedure extends React.Component {
   }
 
   toggleModal(open) {
-    return () => this.setState({ showModal: open });
+    return () => this.setState({showModal: open});
   }
 
   render() {
-    const { title, cards } = this.props.info;
+    const {title, cards} = this.props.info;
     return (
       <div className="procedure border rounded text-center">
         <div className="d-flex justify-content-between align-items-center">

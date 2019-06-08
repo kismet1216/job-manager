@@ -6,16 +6,16 @@ import { BrowserRouter, NavLink, Route, Switch } from 'react-router-dom';
 import Board from './board/board';
 
 function App() {
-	return (
-		<BrowserRouter>
-			<header>
-				<NavLink to="/board">Board</NavLink>
-			</header>
-			<Switch>
-				<Route path="/board" component={Board} />
-			</Switch>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <header>
+        <NavLink to="/board">Board</NavLink>
+      </header>
+      <Switch>
+        <Route path="/board" component={Board} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;

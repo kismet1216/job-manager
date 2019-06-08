@@ -18,7 +18,7 @@ export default class Board extends React.Component {
 
   componentDidMount() {
     axios.get(END_POINT + 'user/1/procedures').then(res => {
-      this.setState({ procedures: res.data })
+      this.setState({procedures: res.data})
     });
   }
 
@@ -28,18 +28,18 @@ export default class Board extends React.Component {
       produce(prevState => {
         const procedures = prevState.procedures;
         let foundCard;
-	      for (let i = 0; i < procedures.length; i++) {
+        for (let i = 0; i < procedures.length; i++) {
           // loop this procedure's cards list
-	        foundCard = procedures[i].cards.find(card => card.id === oldCardId);
-	        if (foundCard) {
+          foundCard = procedures[i].cards.find(card => card.id === oldCardId);
+          if (foundCard) {
             // if found, delete this card from its list
-		        procedures[i].cards = procedures[i].cards.filter(card => card.id !== oldCardId);
-	          break;
+            procedures[i].cards = procedures[i].cards.filter(card => card.id !== oldCardId);
+            break;
           }
-	      }
+        }
         // find dest procedure and add card to it
-	      const currProcedure = procedures.find(p => p.id === currentProcedureId);
-	      currProcedure.cards.push(foundCard);
+        const currProcedure = procedures.find(p => p.id === currentProcedureId);
+        currProcedure.cards.push(foundCard);
       })
     );
   }
