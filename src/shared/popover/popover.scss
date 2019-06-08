@@ -1,0 +1,13 @@
+.popover-component {
+  position: relative;
+
+  .popover-content {
+    position: absolute;
+    padding: 5px;
+    width: 240px;
+    top: 30px;
+    left: 10px;
+    z-index: 2;
+    background: #fff;
+  }
+}

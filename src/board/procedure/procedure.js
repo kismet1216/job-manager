@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './card/card';
 import Modal from '../../shared/modal/modal';
 import './procedure.scss';
+import ProcedureMenu from './procedure-menu/procedure-menu';
 
 /**
  * props: {
@@ -61,6 +62,7 @@ export default class Procedure extends React.Component {
       <div className="procedure border rounded text-center">
         <div className="d-flex justify-content-between align-items-center">
           <button className="btn btn-link"><i className="fa fa-plus" /></button>
+
           {this.state.isEditTitle ?
             <div>
               <input type="text" value={title} onChange={this.changeTitle} autoFocus={true} />
@@ -73,7 +75,8 @@ export default class Procedure extends React.Component {
               {title}
             </div>
           }
-          <button className="btn btn-link"><i className="fa fa-bars" /></button>
+
+          <ProcedureMenu />
         </div>
 
         <div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
