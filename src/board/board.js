@@ -44,13 +44,24 @@ export default class Board extends React.Component {
     );
   }
 
+  changeProcedureTitle(procedure) {
+    return (value) => {
+      this.setState(
+        produce(draft => {
+          const curr = draft.procedures.find(p => p.id === procedure.id);
+          curr.title = value;
+        })
+      );
+    };
+  }
+
   render() {
     return (
       <div className="board container-fluid">
         <div className="procedures-container">
           {this.state.procedures.map(p => (
             <div key={p.id} className="mr-5 d-inline-block align-top">
-              <Procedure info={p} onDrop={this.addCardById} />
+              <Procedure info={p} onDrop={this.addCardById} onChangeTitle={this.changeProcedureTitle(p)} />
             </div>
           ))}
         </div>
