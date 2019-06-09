@@ -5,6 +5,7 @@ import withClickOutside from '../hocs/with-click-outside';
 /**
  * use Hook
  * props: {
+ *   width?: string = 240px
  *   trigger: any,
  *   children: any
  * }
@@ -13,7 +14,7 @@ import withClickOutside from '../hocs/with-click-outside';
 class Popover extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       opened: false
     };
@@ -50,7 +51,7 @@ class Popover extends React.Component {
       <div className="popover-component" ref={this.props.domRef}>
         <div onClick={this.toggleStatus}>{this.props.trigger}</div>
         {this.state.opened ?
-          <div className="popover-content border rounded">
+          <div className="popover-content border rounded" style={{width: this.props.width}}>
             {this.props.children}
           </div> : null}
       </div>
