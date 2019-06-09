@@ -4,6 +4,7 @@ import axios from 'axios';
 import './board.scss';
 import { END_POINT } from '../constants';
 import produce from 'immer';
+import AddProcedure from './add-procedure/add-procedure';
 
 export default class Board extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export default class Board extends React.Component {
     };
 
     this.addCardById = this.addCardById.bind(this);
+    this.addProcedure = this.addProcedure.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +57,14 @@ export default class Board extends React.Component {
     };
   }
 
+  addProcedure(id, title) {
+    this.setState(
+      produce(prevState => {
+        prevState.procedures.push({id, title});
+      })
+    );
+  }
+
   render() {
     return (
       <div className="board container-fluid">
@@ -64,6 +74,9 @@ export default class Board extends React.Component {
               <Procedure info={p} onDrop={this.addCardById} onChangeTitle={this.changeProcedureTitle(p)} />
             </div>
           ))}
+          <div className="mr-5 d-inline-block align-top">
+            <AddProcedure addProcedure={this.addProcedure}/>
+          </div>
         </div>
       </div>
     );

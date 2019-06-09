@@ -75,10 +75,8 @@ export default class Procedure extends React.Component {
               {title}
             </div>
           }
-
           <ProcedureMenu />
         </div>
-
         <div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
           {(cards || []).map(card =>
             <Card info={card} key={card.id} onClick={this.toggleModal(true)} />
