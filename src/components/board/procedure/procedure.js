@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './card/card';
-import Modal from '../../shared/modal/modal';
+import Modal from '../../../shared/modal/modal';
 import './procedure.scss';
 import ProcedureMenu from './procedure-menu/procedure-menu';
 import EditCard from './edit-card/edit-card';

@@ -2,7 +2,7 @@ import React from 'react';
 import Procedure from './procedure/procedure';
 import axios from 'axios';
 import './board.scss';
-import { END_POINT } from '../constants';
+import { END_POINT } from '../../constants';
 import produce from 'immer';
 import AddProcedure from './add-procedure/add-procedure';
 
@@ -15,7 +15,6 @@ export default class Board extends React.Component {
     };
 
     this.addCardById = this.addCardById.bind(this);
-    this.addProcedure = this.addProcedure.bind(this);
   }
 
   componentDidMount() {
@@ -57,14 +56,6 @@ export default class Board extends React.Component {
     };
   }
 
-  addProcedure(id, title) {
-    this.setState(
-      produce(prevState => {
-        prevState.procedures.push({id, title});
-      })
-    );
-  }
-
   onChangeCard(updatedCard, isNew) {
     if (isNew) {
       // to do, refactor with redux
@@ -81,7 +72,7 @@ export default class Board extends React.Component {
             </div>
           ))}
           <div className="d-inline-block align-top">
-            <AddProcedure addProcedure={this.addProcedure}/>
+            <AddProcedure />
           </div>
         </div>
       </div>
