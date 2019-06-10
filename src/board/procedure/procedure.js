@@ -3,6 +3,7 @@ import Card from './card/card';
 import Modal from '../../shared/modal/modal';
 import './procedure.scss';
 import ProcedureMenu from './procedure-menu/procedure-menu';
+import EditCard from './edit-card/edit-card';
 
 /**
  * props: {
@@ -16,7 +17,7 @@ export default class Procedure extends React.Component {
     super(props);
 
     this.state = {
-      showModal: false,
+      modalContent: null,
       isEditTitle: false,
     };
 
@@ -24,6 +25,7 @@ export default class Procedure extends React.Component {
     this.changeTitle = this.changeTitle.bind(this);
     this.onToggleTitle = this.onToggleTitle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.submitCard = this.submitCard.bind(this);
   }
 
   componentDidMount() {
@@ -40,8 +42,8 @@ export default class Procedure extends React.Component {
     this.props.onDrop(cardId, this.props.info.id);
   }
 
-  toggleModal(open) {
-    return () => this.setState({showModal: open});
+  toggleModal(cardInfo) {
+    return () => this.setState({modalContent: cardInfo});
   }
 
   onToggleTitle() {
@@ -54,6 +56,10 @@ export default class Procedure extends React.Component {
 
   changeTitle(e) {
     this.props.onChangeTitle(e.target.value);
+  }
+
+  submitCard(updatedCard, isNew) {
+    this.props.onChangeCard(updatedCard, isNew);
   }
 
   render() {
@@ -79,11 +85,13 @@ export default class Procedure extends React.Component {
         </div>
         <div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
           {(cards || []).map(card =>
-            <Card info={card} key={card.id} onClick={this.toggleModal(true)} />
+            <Card info={card} key={card.id} onClick={this.toggleModal(card)} />
           )}
         </div>
 
-        <Modal show={this.state.showModal} title="详情" onClose={this.toggleModal(false)}>sdf</Modal>
+        <Modal show={this.state.modalContent} title="详情" onClose={this.toggleModal(null)}>
+          <EditCard card={this.state.modalContent} onSubmit={this.submitCard} />
+        </Modal>
       </div>
     );
   }

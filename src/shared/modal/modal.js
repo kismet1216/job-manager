@@ -32,12 +32,12 @@ class Modal extends React.Component {
   render() {
     return (
       <div className="cover" onClick={this.onClickBackground}>
-        <div className="modal-container rounded">
-          <div className="d-flex justify-content-between">
-            {this.props.title}
-            <span onClick={this.close}>&times;</span>
+        <div className="modal-container rounded p-2">
+          <div className="d-flex justify-content-between border-bottom mb-4">
+            <h4>{this.props.title}</h4>
+            <h4 onClick={this.close}>&times;</h4>
           </div>
-          <div className="p-1">
+          <div className="">
             {this.props.children}
           </div>
           <div className="">

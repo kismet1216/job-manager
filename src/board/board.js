@@ -65,16 +65,22 @@ export default class Board extends React.Component {
     );
   }
 
+  onChangeCard(updatedCard, isNew) {
+    if (isNew) {
+      // to do, refactor with redux
+    } else {}
+  }
+
   render() {
     return (
       <div className="board container-fluid">
         <div className="procedures-container">
           {this.state.procedures.map(p => (
             <div key={p.id} className="mr-5 d-inline-block align-top">
-              <Procedure info={p} onDrop={this.addCardById} onChangeTitle={this.changeProcedureTitle(p)} />
+              <Procedure info={p} onDrop={this.addCardById} onChangeTitle={this.changeProcedureTitle(p)} onChangeCard={this.onChangeCard} />
             </div>
           ))}
-          <div className="mr-5 d-inline-block align-top">
+          <div className="d-inline-block align-top">
             <AddProcedure addProcedure={this.addProcedure}/>
           </div>
         </div>
