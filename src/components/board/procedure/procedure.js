@@ -25,7 +25,6 @@ export default class Procedure extends React.Component {
     this.changeTitle = this.changeTitle.bind(this);
     this.onToggleTitle = this.onToggleTitle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-    this.submitCard = this.submitCard.bind(this);
   }
 
   componentDidMount() {
@@ -42,8 +41,9 @@ export default class Procedure extends React.Component {
     this.props.onDrop(cardId, this.props.info.id);
   }
 
-  toggleModal(cardInfo) {
-    return () => this.setState({modalContent: cardInfo});
+  toggleModal(card) {
+    const modalContent = card ? {card, pid: this.props.info.id} : null;
+    return () => this.setState({modalContent});
   }
 
   onToggleTitle() {
@@ -56,10 +56,6 @@ export default class Procedure extends React.Component {
 
   changeTitle(e) {
     this.props.onChangeTitle(e.target.value);
-  }
-
-  submitCard(updatedCard, isNew) {
-    this.props.onChangeCard(updatedCard, isNew);
   }
 
   render() {
@@ -90,7 +86,7 @@ export default class Procedure extends React.Component {
         </div>
 
         <Modal show={this.state.modalContent} title="详情" onClose={this.toggleModal(null)}>
-          <EditCard card={this.state.modalContent} onSubmit={this.submitCard} />
+          <EditCard info={this.state.modalContent} />
         </Modal>
       </div>
     );

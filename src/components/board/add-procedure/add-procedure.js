@@ -1,7 +1,6 @@
 import React from 'react';
 import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
-import { getProcedures } from '../../../redux/selectors/procedures.selector';
 import { PROCEDURE_ADD } from '../../../constants';
 
 /**

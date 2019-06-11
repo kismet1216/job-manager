@@ -1,1 +1,1 @@
-export const getProcedures = (state) => state.procedures;
+export const getProcedures = (state) => state.proceduresState;

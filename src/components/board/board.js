@@ -2,28 +2,26 @@ import React from 'react';
 import Procedure from './procedure/procedure';
 import axios from 'axios';
 import './board.scss';
-import { END_POINT } from '../../constants';
+import { END_POINT, PROCEDURES_SET } from '../../constants';
 import produce from 'immer';
 import AddProcedure from './add-procedure/add-procedure';
+import { getProcedures } from '../../redux/selectors/procedures.selector';
+import { connect } from 'react-redux';
 
-export default class Board extends React.Component {
+class Board extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      procedures: []
-    };
-
-    this.addCardById = this.addCardById.bind(this);
+    this.moveCardById = this.moveCardById.bind(this);
   }
 
   componentDidMount() {
     axios.get(END_POINT + 'user/1/procedures').then(res => {
-      this.setState({procedures: res.data})
+      this.props.setProcedures(res.data);
     });
   }
 
-  addCardById(oldCardId, currentProcedureId) {
+  moveCardById(oldCardId, currentProcedureId) {
     this.setState(
       // immer's usage in setState
       produce(prevState => {
@@ -56,19 +54,13 @@ export default class Board extends React.Component {
     };
   }
 
-  onChangeCard(updatedCard, isNew) {
-    if (isNew) {
-      // to do, refactor with redux
-    } else {}
-  }
-
   render() {
     return (
       <div className="board container-fluid">
         <div className="procedures-container">
-          {this.state.procedures.map(p => (
+          {this.props.procedures.map(p => (
             <div key={p.id} className="mr-5 d-inline-block align-top">
-              <Procedure info={p} onDrop={this.addCardById} onChangeTitle={this.changeProcedureTitle(p)} onChangeCard={this.onChangeCard} />
+              <Procedure info={p} onDrop={this.moveCardById} onChangeTitle={this.changeProcedureTitle(p)} onChangeCard={this.onChangeCard} />
             </div>
           ))}
           <div className="d-inline-block align-top">
@@ -79,3 +71,16 @@ export default class Board extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  procedures: getProcedures(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  setProcedures: (procedures) => dispatch({type: PROCEDURES_SET, payload: procedures})
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);

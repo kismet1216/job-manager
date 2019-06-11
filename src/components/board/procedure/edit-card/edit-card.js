@@ -1,30 +1,34 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-
+import { doCardAction } from '../../../../redux/actions/do-card.action';
+import { connect } from 'react-redux';
 /*
 * props: {
-*   card: any
+*   info: {
+*     card: any,
+*     pid: string
+*   }
 * }
 * */
-export default class EditCard extends React.Component {
+class EditCard extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isNew: !this.props.card.dest
+      isNew: !this.props.info.card.dest
     };
 
     this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm(values, actions) {
-    this.props.onSubmit(values, this.state.isNew);
+    this.props.onSubmit(values, this.props.info.pid, this.state.isNew);
     actions.setSubmitting(false);
   }
 
   render() {
     return (
-      <Formik initialValues={this.props.card} onSubmit={this.submitForm} render={({errors, status, touched, isSubmitting}) => (
+      <Formik initialValues={this.props.info.card} onSubmit={this.submitForm} render={({errors, status, touched, isSubmitting}) => (
         <Form>
           <div className="form-group row">
             <label className="col-2 col-form-label">公司</label>
@@ -84,3 +88,12 @@ export default class EditCard extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (card, pid, isNew) => dispatch(doCardAction(card, pid, isNew))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(EditCard);
