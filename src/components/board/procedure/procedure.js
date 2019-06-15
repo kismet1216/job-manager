@@ -81,7 +81,7 @@ export default class Procedure extends React.Component {
         </div>
         <div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
           {(cards || []).map(card =>
-            <Card info={card} key={card.id} onClick={this.toggleModal(card)} />
+            <Card info={card} key={card.id} pid={this.props.info.id} onOpenModal={this.toggleModal(card)} />
           )}
         </div>
 
