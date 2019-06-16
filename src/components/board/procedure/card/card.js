@@ -1,10 +1,11 @@
 import React from 'react';
-import { CARD_DELETE, CARD_PROMOTE } from '../../../../constants';
+import { CARD_DELETE, CARD_MOVE } from '../../../../constants';
 import { connect } from 'react-redux';
 
-const Card = ({info, pid, onOpenModal, deleteCard, promoteCard}) => {
+const Card = ({info, pid, onOpenModal, deleteCard, moveCard}) => {
   function dragStart(e) {
-    e.dataTransfer.setData('text/plain', e.target.id);
+    const draggedCardIdAndPid = e.target.id + '-' + pid;
+    e.dataTransfer.setData('text/plain', draggedCardIdAndPid);
   }
 
   function cardDelete(e) {
@@ -12,8 +13,8 @@ const Card = ({info, pid, onOpenModal, deleteCard, promoteCard}) => {
     e.stopPropagation();
   }
 
-  function cardPromote(e) {
-    promoteCard(info, pid);
+  function cardMove(e) {
+    moveCard(info.id, pid);
     e.stopPropagation();
   }
 
@@ -28,7 +29,7 @@ const Card = ({info, pid, onOpenModal, deleteCard, promoteCard}) => {
       </div>
       <div className="d-flex justify-content-between">
         <i className="fa fa-trash text-danger m-1" onClick={cardDelete}/>
-        <i className="fa fa-hand-o-right text-primary m-1" onClick={cardPromote}/>
+        <i className="fa fa-hand-o-right text-primary m-1" onClick={cardMove}/>
       </div>
     </div>
   );
@@ -39,8 +40,8 @@ const mapDispatchToProps = (dispatch) => (
     deleteCard(cid, pid) {
       dispatch({type: CARD_DELETE, payload: {cid, pid}});
     },
-    promoteCard(card, pid) {
-      dispatch({type: CARD_PROMOTE, payload: {card, pid}});
+    moveCard(cid, opid) {
+      dispatch({type: CARD_MOVE, payload: {cid, opid}});
     }
   }
 )

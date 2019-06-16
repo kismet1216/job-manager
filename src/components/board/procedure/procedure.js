@@ -4,6 +4,8 @@ import Modal from '../../../shared/modal/modal';
 import './procedure.scss';
 import ProcedureMenu from './procedure-menu/procedure-menu';
 import EditCard from './edit-card/edit-card';
+import { CARD_MOVE } from '../../../constants';
+import { connect } from 'react-redux';
 
 /**
  * props: {
@@ -12,7 +14,7 @@ import EditCard from './edit-card/edit-card';
  *  onChangeTitle: () => {}
  * }
  */
-export default class Procedure extends React.Component {
+class Procedure extends React.Component {
   constructor(props) {
     super(props);
 
@@ -36,9 +38,11 @@ export default class Procedure extends React.Component {
 
   drop(e) {
     e.preventDefault();
-    const cardId = e.dataTransfer.getData('text/plain');
+    const draggedCardIdAndPid = e.dataTransfer.getData('text/plain');
+    // [0] is cid, [1] is pid
+    const cidAndPid = draggedCardIdAndPid.split('-');
     // leverage logic to parent
-    this.props.onDrop(cardId, this.props.info.id);
+    this.props.onDrop(cidAndPid[0], cidAndPid[1], this.props.info.id);
   }
 
   toggleModal(card) {
@@ -92,3 +96,19 @@ export default class Procedure extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onDrop: function (cid, opid, npid) {
+      dispatch( {
+        type: CARD_MOVE,
+        payload: {cid, opid, npid}
+      })
+    }
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Procedure);

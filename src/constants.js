@@ -10,3 +10,4 @@ export const CARD_ADD = 'CARD_ADD';
 export const CARD_EDIT = 'CARD_EDIT';
 export const CARD_DELETE = 'CARD_DELETE';
 export const CARD_PROMOTE = 'CARD_PROMOTE';
+export const CARD_MOVE = 'CARD_MOVE';

@@ -1,4 +1,4 @@
-import { CARD_ADD, CARD_EDIT, PROCEDURE_ADD, PROCEDURES_SET, CARD_DELETE, CARD_PROMOTE } from '../../constants';
+import { CARD_ADD, CARD_EDIT, PROCEDURE_ADD, PROCEDURES_SET, CARD_DELETE,  CARD_MOVE } from '../../constants';
 import { produce } from 'immer';
 
 const proceduresReducer = (state = [], action) => {
@@ -13,8 +13,8 @@ const proceduresReducer = (state = [], action) => {
       return addCard(state, action.payload);
     case CARD_DELETE:
       return deleteCard(state, action.payload);
-    case CARD_PROMOTE:
-      return promoteCard(state, action.payload); 
+    case CARD_MOVE:
+      return moveCard(state, action.payload);
     default:
       return state;
   }
@@ -40,21 +40,26 @@ const addCard = (procedures, {card, pid}) => (
 
 const deleteCard = (procedures, {cid, pid}) => {
   return produce(procedures, draft => {
-    draft.find( p => p.id === pid )
-          .cards
-          .splice(cid, 1);
+    const procedure = draft.find( p => p.id === pid );
+    procedure.cards = procedure.cards.filter(c => c.id !== cid);
   });
 }
 
-const promoteCard = (procedures, {card, pid}) =>  (
-  produce(procedures, draft => {
-    draft[draft.findIndex(p => p.id === pid) + 1]
-        .cards
-        .push(card);
-    const cards = draft.find( p => p.id === pid ).cards;
-    cards.splice(cards.findIndex(c => c.id === card.id), 1);
-  })
-)
+const moveCard = (procedures, {cid, opid, npid}) => {
+  if (!npid) {
+    npid = procedures[procedures.findIndex( p => p.id === opid) + 1].id;
+  }
+  if (npid !== opid) {
+    return produce(procedures, draft => {
+      let procedure = draft.find( p => p.id === opid);      //find current procedure ID
+      let card = procedure.cards.find(c => c.id === cid);   //find card
+      draft.find(p => p.id === npid).cards.push(card);      //find target procedure ID and push card
+      procedure.cards = procedure.cards.filter(c => c.id !== cid);
+    })
+  }
+
+  return procedures;
+}
 
 
 export default proceduresReducer;
