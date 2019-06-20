@@ -1,11 +1,12 @@
 import React from 'react';
 import Card from './card/card';
-import Modal from '../../../shared/modal/modal';
+import Modal from '../../../shared/components/modal/modal';
 import './procedure.scss';
 import ProcedureMenu from './procedure-menu/procedure-menu';
 import EditCard from './edit-card/edit-card';
 import { CARD_MOVE } from '../../../constants';
 import { connect } from 'react-redux';
+import CardEntity from '../../../shared/entities/card.entity';
 
 /**
  * props: {
@@ -67,7 +68,7 @@ class Procedure extends React.Component {
     return (
       <div className="procedure border rounded text-center">
         <div className="d-flex justify-content-between align-items-center">
-          <button className="btn btn-link"><i className="fa fa-plus" /></button>
+          <button className="btn btn-link" onClick={this.toggleModal(new CardEntity())}><i className="fa fa-plus" /></button>
 
           {this.state.isEditTitle ?
             <div>

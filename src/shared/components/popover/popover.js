@@ -1,6 +1,6 @@
 import React from 'react';
 import './popover.scss';
-import withClickOutside from '../hocs/with-click-outside';
+import withClickOutside from '../../hocs/with-click-outside';
 
 /**
  * use Hook

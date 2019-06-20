@@ -2,12 +2,14 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { doCardAction } from '../../../../redux/actions/do-card.action';
 import { connect } from 'react-redux';
+import http from '../../../../shared/services/http';
 /*
 * props: {
 *   info: {
 *     card: any,
 *     pid: string
-*   }
+*   },
+*   onClose() => {}
 * }
 * */
 class EditCard extends React.Component {
@@ -15,15 +17,20 @@ class EditCard extends React.Component {
     super(props);
 
     this.state = {
-      isNew: !this.props.info.card.dest
+      // if no company setup when opening modal, meaning isNew
+      isNew: !this.props.info.card.company
     };
 
     this.submitForm = this.submitForm.bind(this);
   }
 
   submitForm(values, actions) {
-    this.props.onSubmit(values, this.props.info.pid, this.state.isNew);
-    actions.setSubmitting(false);
+    const api = this.state.isNew ? `/card/addTo/${this.props.info.pid}` : '/card/edit';
+    http.post(api, values).then(procedure => {
+      this.props.setProcedure(procedure);
+      actions.setSubmitting(false);
+      this.props.onClose();
+    });
   }
 
   render() {
@@ -33,14 +40,14 @@ class EditCard extends React.Component {
           <div className="form-group row">
             <label className="col-2 col-form-label">公司</label>
             <div className="col-6">
-              <Field type="text" name="dest" className="form-control" />
-              <ErrorMessage name="dest" />
+              <Field type="text" name="company" className="form-control" />
+              <ErrorMessage name="company" />
             </div>
           </div>
           <div className="form-group row">
             <label className="col-2 col-form-label">职位</label>
             <div className="col-6">
-              <Field type="text" name="pos" className="form-control" />
+              <Field type="text" name="position" className="form-control" />
             </div>
           </div>
           <div className="form-group row">
@@ -58,7 +65,7 @@ class EditCard extends React.Component {
           <div className="form-group row">
             <label className="col-2 col-form-label">投递时间</label>
             <div className="col-6">
-              <Field type="text" name="date" className="form-control" />
+              <Field type="date" name="date" className="form-control" />
             </div>
           </div>
           <div className="form-group row">
@@ -90,7 +97,7 @@ class EditCard extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: (card, pid, isNew) => dispatch(doCardAction(card, pid, isNew))
+  setProcedure: (procedure) => dispatch(doCardAction(procedure))
 });
 
 export default connect(

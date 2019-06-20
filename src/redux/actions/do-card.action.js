@@ -1,8 +1,5 @@
-import { CARD_ADD, CARD_EDIT } from '../../constants';
+import { PROCEDURE_SET } from '../../constants';
 
-export const doCardAction = (card, pid, isNew) => {
-  if (isNew) {
-    return {type: CARD_ADD, payload: {card, pid}};
-  }
-  return {type: CARD_EDIT, payload: {card, pid}};
+export const doCardAction = (procedure) => {
+  return {type: PROCEDURE_SET, payload: procedure};
 };

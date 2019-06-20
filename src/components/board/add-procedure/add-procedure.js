@@ -1,7 +1,7 @@
 import React from 'react';
-import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
 import { PROCEDURE_ADD } from '../../../constants';
+import http from '../../../shared/services/http';
 
 /**
  * props: {
@@ -27,9 +27,10 @@ class AddProcedure extends React.Component {
   }
 
   addProcedure() {
-    let id = uuid();
-    let title = this.state.title;
-    this.props.addProcedure(id, title);
+    http.post('/procedures/add', {title: this.state.title}).then(procedure => {
+      this.props.addProcedure(procedure);
+    });
+
     this.setState({
       isShowInput: false,
       title: ''
@@ -56,7 +57,7 @@ class AddProcedure extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addProcedure: (id, title) => dispatch({ type: PROCEDURE_ADD, payload: { id, title } })
+  addProcedure: (title) => dispatch({ type: PROCEDURE_ADD, payload: title })
 });
 
 export default connect(

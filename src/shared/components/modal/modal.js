@@ -1,5 +1,5 @@
 import React from 'react';
-import withConditionalRendering from '../hocs/with-conditional-rendering';
+import withConditionalRendering from '../../hocs/with-conditional-rendering';
 import './modal.scss';
 
 /**
@@ -38,7 +38,7 @@ class Modal extends React.Component {
             <h4 onClick={this.close}>&times;</h4>
           </div>
           <div className="">
-            {this.props.children}
+            {React.cloneElement(this.props.children, {onClose: this.close})}
           </div>
           <div className="">
           </div>

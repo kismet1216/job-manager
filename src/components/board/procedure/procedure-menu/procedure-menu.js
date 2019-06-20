@@ -1,5 +1,5 @@
 import React from 'react';
-import Popover from '../../../../shared/popover/popover';
+import Popover from '../../../../shared/components/popover/popover';
 
 export default class ProcedureMenu extends React.Component {
   render() {

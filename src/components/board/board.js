@@ -1,17 +1,17 @@
 import React from 'react';
 import Procedure from './procedure/procedure';
-import axios from 'axios';
 import './board.scss';
-import { END_POINT, PROCEDURES_SET } from '../../constants';
+import { PROCEDURES_SET } from '../../constants';
 import produce from 'immer';
 import AddProcedure from './add-procedure/add-procedure';
 import { getProcedures } from '../../redux/selectors/procedures.selector';
 import { connect } from 'react-redux';
+import http from '../../shared/services/http';
 
 class Board extends React.Component {
   componentDidMount() {
-    axios.get(END_POINT + 'user/1/procedures').then(res => {
-      this.props.setProcedures(res.data);
+    http.get('/procedures').then(procedures => {
+      this.props.setProcedures(procedures);
     });
   }
 
