@@ -23,11 +23,11 @@ class AddProcedure extends React.Component {
   }
 
   showInput() {
-    this.setState({ isShowInput: true });
+    this.setState({isShowInput: true});
   }
 
   addProcedure() {
-    http.post('/procedures/add', {title: this.state.title}).then(procedure => {
+    http.post('/procedure', {title: this.state.title}).then(procedure => {
       this.props.addProcedure(procedure);
     });
 
@@ -38,7 +38,7 @@ class AddProcedure extends React.Component {
   }
 
   inputTitle(e) {
-    this.setState({ title: e.target.value });
+    this.setState({title: e.target.value});
   }
 
   render() {
@@ -57,7 +57,7 @@ class AddProcedure extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addProcedure: (title) => dispatch({ type: PROCEDURE_ADD, payload: title })
+  addProcedure: (title) => dispatch({type: PROCEDURE_ADD, payload: title})
 });
 
 export default connect(

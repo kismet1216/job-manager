@@ -7,6 +7,9 @@ import EditCard from './edit-card/edit-card';
 import { CARD_MOVE } from '../../../constants';
 import { connect } from 'react-redux';
 import CardEntity from '../../../shared/entities/card.entity';
+import http from '../../../shared/services/http';
+import { setProcedureAction } from '../../../redux/actions/set-procedure.action';
+import Popover from '../../../shared/components/popover/popover';
 
 /**
  * props: {
@@ -20,6 +23,7 @@ class Procedure extends React.Component {
     super(props);
 
     this.state = {
+      localTitle: this.props.info.title,
       modalContent: null,
       isEditTitle: false,
     };
@@ -43,7 +47,7 @@ class Procedure extends React.Component {
     // [0] is cid, [1] is pid
     const cidAndPid = draggedCardIdAndPid.split('-');
     // leverage logic to parent
-    this.props.onDrop(cidAndPid[0], cidAndPid[1], this.props.info.id);
+    this.props.onDrop(parseInt(cidAndPid[0], 10), parseInt(cidAndPid[1], 10), this.props.info.id);
   }
 
   toggleModal(card) {
@@ -53,6 +57,11 @@ class Procedure extends React.Component {
 
   onToggleTitle() {
     this.setState(prev => {
+      if (prev.isEditTitle) {
+        http.post('/procedure', {...this.props.info, title: prev.localTitle}).then(newProcedure => {
+          this.props.updateProcedure(newProcedure);
+        });
+      }
       return {
         isEditTitle: !prev.isEditTitle
       };
@@ -60,11 +69,11 @@ class Procedure extends React.Component {
   }
 
   changeTitle(e) {
-    this.props.onChangeTitle(e.target.value);
+    this.setState({localTitle: e.target.value});
   }
 
   render() {
-    const {title, cards} = this.props.info;
+    const {cards, id} = this.props.info;
     return (
       <div className="procedure border rounded text-center">
         <div className="d-flex justify-content-between align-items-center">
@@ -72,17 +81,19 @@ class Procedure extends React.Component {
 
           {this.state.isEditTitle ?
             <div>
-              <input type="text" value={title} onChange={this.changeTitle} autoFocus={true} />
+              <input type="text" value={this.state.localTitle} onChange={this.changeTitle} autoFocus={true} />
               <button className="btn btn-outline-primary" onClick={this.onToggleTitle}>
                 ok
               </button>
             </div>
             :
             <div onClick={this.onToggleTitle}>
-              {title}
+              {this.state.localTitle}
             </div>
           }
-          <ProcedureMenu />
+          <Popover width="200px" trigger={<button className="btn btn-link"><i className="fa fa-bars" /></button>}>
+            <ProcedureMenu pid={id} />
+          </Popover>
         </div>
         <div className="cards-container" onDragOver={this.allowDrop} onDrop={this.drop}>
           {(cards || []).map(card =>
@@ -100,8 +111,11 @@ class Procedure extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
+    updateProcedure: (procedure) => {
+      dispatch(setProcedureAction(procedure));
+    },
     onDrop: function (cid, opid, npid) {
-      dispatch( {
+      dispatch({
         type: CARD_MOVE,
         payload: {cid, opid, npid}
       })

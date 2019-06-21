@@ -9,6 +9,14 @@ const http = {
   post(url, req) {
     return axios.post(END_POINT + url, req)
                 .then(res => res.data);
+  },
+  put(url, req) {
+    return axios.put(END_POINT + url, req)
+                .then(res => res.data);
+  },
+  delete(url) {
+    return axios.delete(END_POINT + url)
+                .then(res => res.data);
   }
 };
 

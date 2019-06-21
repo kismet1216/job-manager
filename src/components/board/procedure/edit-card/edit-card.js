@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { doCardAction } from '../../../../redux/actions/do-card.action';
 import { connect } from 'react-redux';
 import http from '../../../../shared/services/http';
+
 /*
 * props: {
 *   info: {
@@ -25,11 +26,10 @@ class EditCard extends React.Component {
   }
 
   submitForm(values, actions) {
-    const api = this.state.isNew ? `/card/addTo/${this.props.info.pid}` : '/card/edit';
-    http.post(api, values).then(procedure => {
+    http.post(`/card/${this.props.info.pid}`, values).then(procedure => {
       this.props.setProcedure(procedure);
       actions.setSubmitting(false);
-      this.props.onClose();
+      this.props.close();
     });
   }
 

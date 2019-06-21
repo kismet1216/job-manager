@@ -38,7 +38,7 @@ class Modal extends React.Component {
             <h4 onClick={this.close}>&times;</h4>
           </div>
           <div className="">
-            {React.cloneElement(this.props.children, {onClose: this.close})}
+            {React.cloneElement(this.props.children, {close: this.close})}
           </div>
           <div className="">
           </div>

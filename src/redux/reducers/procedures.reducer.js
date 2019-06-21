@@ -1,5 +1,6 @@
 import { CARD_ADD, CARD_EDIT, PROCEDURE_ADD, PROCEDURES_SET, CARD_DELETE, CARD_MOVE, PROCEDURE_SET } from '../../constants';
 import { produce } from 'immer';
+import http from '../../shared/services/http';
 
 const proceduresReducer = (state = [], action) => {
   switch (action.type) {
@@ -59,6 +60,8 @@ const moveCard = (procedures, {cid, opid, npid}) => {
     npid = procedures[procedures.findIndex(p => p.id === opid) + 1].id;
   }
   if (npid !== opid) {
+    // save changes on backend
+    http.get(`/card/move/${cid}/${npid}`).then();
     return produce(procedures, draft => {
       let procedure = draft.find(p => p.id === opid);      //find current procedure ID
       let card = procedure.cards.find(c => c.id === cid);   //find card
