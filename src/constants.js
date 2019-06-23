@@ -1,5 +1,5 @@
-export const END_POINT = 'http://localhost:5000';
-// export const END_POINT = 'https://job-manager-api.herokuapp.com';
+// export const END_POINT = 'http://localhost:5000';
+export const END_POINT = 'https://job-manager-api.herokuapp.com';
 
 // action types
 // procedure related
