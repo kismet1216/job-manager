@@ -22,13 +22,18 @@ const Card = ({info, pid, onOpenModal, updateProcedure, moveCard}) => {
     e.stopPropagation();
   }
 
+  function showResume(e) {
+    e.stopPropagation();
+    http.get(`/download/${info.resumeId}`).then();
+  }
+
   return (
     <div className="card m-1" draggable="true" onDragStart={dragStart} id={info.id} onClick={onOpenModal}>
       <div className="card-body">
         <h5 className="card-title">{info.company}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{info.position} {info.date}</h6>
         <p className="card-text">{info.contact.recruiter} / {info.contact.phone} / {info.contact.email}</p>
-        <button className="btn btn-outline-primary">简历</button>
+        <button className="btn btn-outline-primary" onClick={showResume}>简历</button>
         <a href={info.submittedUrl} className="card-link ml-2">投递网站</a>
       </div>
       <div className="d-flex justify-content-between">

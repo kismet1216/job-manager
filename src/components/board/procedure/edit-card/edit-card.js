@@ -19,18 +19,31 @@ class EditCard extends React.Component {
 
     this.state = {
       // if no company setup when opening modal, meaning isNew
-      isNew: !this.props.info.card.company
+      isNew: !this.props.info.card.company,
+      savedResume: null
     };
 
     this.submitForm = this.submitForm.bind(this);
+    this.uploadFile = this.uploadFile.bind(this);
   }
 
   submitForm(values, actions) {
+    // todo: 用户可能不上传，用户可能第二次不上传
+    values.resumeId = this.state.savedResume.id;
     http.post(`/card/${this.props.info.pid}`, values).then(procedure => {
       this.props.setProcedure(procedure);
       actions.setSubmitting(false);
       this.props.close();
     });
+  }
+
+  uploadFile(e) {
+    const formData = new FormData();
+    formData.append('file', e.target.files[0]);
+    formData.append('fileId', this.props.info.card.resumeId);
+    http.post('/upload', formData).then(resume => {
+      this.setState({savedResume: resume});
+    })
   }
 
   render() {
@@ -59,7 +72,7 @@ class EditCard extends React.Component {
           <div className="form-group row">
             <label className="col-2 col-form-label">简历</label>
             <div className="col-6">
-              <Field type="text" name="resume" className="form-control" />
+              <input type="file" onChange={this.uploadFile} />
             </div>
           </div>
           <div className="form-group row">

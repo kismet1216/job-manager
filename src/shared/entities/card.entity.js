@@ -3,7 +3,7 @@ export default class CardEntity {
     this.id = null;
     this.company = '';
     this.position = '';
-    this.resume = '';
+    this.resumeId = '';
     this.submittedUrl = '';
     this.date = '';
     this.index = 0;
