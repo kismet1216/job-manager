@@ -4,4 +4,5 @@
 ## 架构
 
 ## 后端api文档（swagger）
-https://app.swaggerhub.com/apis/jobmanager/api-documentation
+自己host： https://job-manager-api.herokuapp.com/swagger-ui.html
+swagger网站： https://app.swaggerhub.com/apis/jobmanager/api-documentation
