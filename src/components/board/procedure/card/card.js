@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import http from '../../../../shared/services/http';
 import { setProcedureAction } from '../../../../redux/actions/set-procedure.action';
 import { CARD_MOVE } from '../../../../constants';
+import { getProcedures } from '../../../../redux/selectors/procedures.selector';
 
-const Card = ({info, pid, onOpenModal, updateProcedure, moveCard}) => {
+
+const Card = ({info, pid, onOpenModal, updateProcedure, moveCard, procedures}) => {
   function dragStart(e) {
     const draggedCardIdAndPid = e.target.id + '-' + pid;
     e.dataTransfer.setData('text/plain', draggedCardIdAndPid);
@@ -27,6 +29,10 @@ const Card = ({info, pid, onOpenModal, updateProcedure, moveCard}) => {
     http.get(`/download/${info.resumeId}`).then();
   }
 
+  function ifShow() {
+    return pid !== procedures[procedures.length - 1].id;
+  }
+
   return (
     <div className="card m-1" draggable="true" onDragStart={dragStart} id={info.id} onClick={onOpenModal}>
       <div className="card-body">
@@ -38,11 +44,19 @@ const Card = ({info, pid, onOpenModal, updateProcedure, moveCard}) => {
       </div>
       <div className="d-flex justify-content-between">
         <i className="fa fa-trash text-danger m-1" onClick={cardDelete} />
-        <i className="fa fa-hand-o-right text-primary m-1" onClick={cardPromote} />
+        {
+          ifShow() && <i className="fa fa-hand-o-right text-primary m-1" onClick={cardPromote} />
+        }
       </div>
     </div>
   );
 };
+
+const mapStateToProps = (state) => (
+  {
+    procedures: getProcedures(state)
+  }
+)
 
 const mapDispatchToProps = (dispatch) => (
   {
@@ -56,6 +70,6 @@ const mapDispatchToProps = (dispatch) => (
 );
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Card);

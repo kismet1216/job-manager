@@ -8,10 +8,22 @@ import http from '../../shared/services/http';
 import { setProceduresAction } from '../../redux/actions/set-procedures.action';
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.createProceduresByDefault = this.createProceduresByDefault.bind(this);
+  }
+
   componentDidMount() {
     http.get('/procedures').then(procedures => {
       this.props.setProcedures(procedures);
     });
+  }
+
+  createProceduresByDefault() {
+    http.get('/procedures/create').then(procedures => {
+      this.props.setProcedures(procedures);
+    })
   }
 
   render() {
@@ -25,6 +37,9 @@ class Board extends React.Component {
           ))}
           <div className="d-inline-block align-top">
             <AddProcedure />
+            {
+              (this.props.procedures.length === 0) && <button className="btn btn-outline-primary " onClick={this.createProceduresByDefault}>Create procedures by default</button> 
+            }
           </div>
         </div>
       </div>
@@ -38,6 +53,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setProcedures: (procedures) => dispatch(setProceduresAction(procedures))
+  
 });
 
 export default connect(
