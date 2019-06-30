@@ -1,8 +1,12 @@
 .procedure {
   width: 300px;
   height: 600px;
+  overflow: hidden;
 
   .cards-container {
     height: 560px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
   }
 }

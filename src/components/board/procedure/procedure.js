@@ -32,6 +32,7 @@ class Procedure extends React.Component {
     this.changeTitle = this.changeTitle.bind(this);
     this.onToggleTitle = this.onToggleTitle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
+    this.ifEnterKey = this.ifEnterKey.bind(this);
   }
 
   componentDidMount() {
@@ -72,6 +73,12 @@ class Procedure extends React.Component {
     this.setState({localTitle: e.target.value});
   }
 
+  ifEnterKey(e) {
+    if(e.nativeEvent.keyCode === 13) { 
+      this.onToggleTitle();
+    }
+  }
+
   render() {
     const {cards, id} = this.props.info;
     return (
@@ -81,7 +88,7 @@ class Procedure extends React.Component {
 
           {this.state.isEditTitle ?
             <div>
-              <input type="text" value={this.state.localTitle} onChange={this.changeTitle} autoFocus={true} />
+              <input type="text" value={this.state.localTitle} onChange={this.changeTitle} autoFocus={true} onKeyPress={this.ifEnterKey}/>
               <button className="btn btn-outline-primary" onClick={this.onToggleTitle}>
                 ok
               </button>
