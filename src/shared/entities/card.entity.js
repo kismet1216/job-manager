@@ -6,7 +6,6 @@ export default class CardEntity {
     this.resumeId = '';
     this.submittedUrl = '';
     this.date = '';
-    this.index = 0;
     this.contact = {
       recruiter: '',
       phone: '',

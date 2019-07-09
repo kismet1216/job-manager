@@ -28,8 +28,9 @@ class EditCard extends React.Component {
   }
 
   submitForm(values, actions) {
-    // todo: 用户可能不上传，用户可能第二次不上传
-    values.resumeId = this.state.savedResume.id;
+    if (this.state.savedResume && !this.props.info.card.resumeId) {
+      values.resumeId = this.state.savedResume.id;
+    }
     http.post(`/card/${this.props.info.pid}`, values).then(procedure => {
       this.props.setProcedure(procedure);
       actions.setSubmitting(false);
