@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App has a valid snapshot 1`] = `
+Array [
+  <header>
+    <a
+      aria-current="page"
+      className="active"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      面板
+    </a>
+    <a
+      aria-current={null}
+      href="/resume-maker"
+      onClick={[Function]}
+    >
+      简历制作
+    </a>
+  </header>,
+  <div
+    className="board container-fluid"
+  >
+    <div
+      className="procedures-container"
+    >
+      <div
+        className="d-inline-block align-top"
+      >
+        <div>
+          <button
+            className="btn btn-outline-primary"
+            onClick={[Function]}
+          >
+            <i
+              className="fa fa-plus"
+            />
+             Add a new procedure
+          </button>
+        </div>
+        <button
+          className="btn btn-outline-primary "
+          onClick={[Function]}
+        >
+          创建预定义模版
+        </button>
+      </div>
+    </div>
+  </div>,
+]
+`;

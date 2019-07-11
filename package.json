@@ -24,7 +24,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-scripts": "latest"
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "react-scripts": "latest",
+    "react-test-renderer": "^16.8.6"
   },
   "browserslist": {
     "production": [

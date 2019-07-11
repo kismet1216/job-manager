@@ -32,13 +32,13 @@ class Board extends React.Component {
         <div className="procedures-container">
           {this.props.procedures.map(p => (
             <div key={p.id} className="mr-5 d-inline-block align-top">
-              <Procedure info={p} onChangeCard={this.onChangeCard} />
+              <Procedure info={p}/>
             </div>
           ))}
           <div className="d-inline-block align-top">
             <AddProcedure />
             {
-              (this.props.procedures.length === 0) && <button className="btn btn-outline-primary " onClick={this.createProceduresByDefault}>Create procedures by default</button> 
+              (this.props.procedures.length === 0) && <button className="btn btn-outline-primary " onClick={this.createProceduresByDefault}>创建预定义模版</button>
             }
           </div>
         </div>
@@ -53,7 +53,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setProcedures: (procedures) => dispatch(setProceduresAction(procedures))
-  
 });
 
 export default connect(

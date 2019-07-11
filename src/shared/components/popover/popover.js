@@ -49,7 +49,7 @@ class Popover extends React.Component {
   render() {
     return (
       <div className="popover-component" ref={this.props.domRef}>
-        <div onClick={this.toggleStatus}>{this.props.trigger}</div>
+        <div className="trigger" onClick={this.toggleStatus}>{this.props.trigger}</div>
         {this.state.opened ?
           <div className="popover-content border rounded" style={{width: this.props.width}}>
             {React.cloneElement(this.props.children, {close: this.toggleStatus})}

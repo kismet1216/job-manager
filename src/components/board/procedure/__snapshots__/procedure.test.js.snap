@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Procedure has a valid menu snapshot 1`] = `
+<div
+  className="procedure border rounded text-center"
+>
+  <div
+    className="d-flex justify-content-between align-items-center"
+  >
+    <button
+      className="btn btn-link"
+      onClick={[Function]}
+    >
+      <i
+        className="fa fa-plus"
+      />
+    </button>
+    <div
+      onClick={[Function]}
+    >
+      1
+    </div>
+    <div
+      className="popover-component"
+    >
+      <div
+        className="trigger"
+        onClick={[Function]}
+      >
+        <button
+          className="btn btn-link"
+        >
+          <i
+            className="fa fa-bars"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="cards-container"
+    onDragOver={[Function]}
+    onDrop={[Function]}
+  />
+</div>
+`;
+
+exports[`Procedure has a valid menu snapshot 2`] = `
+<div
+  className="procedure border rounded text-center"
+>
+  <div
+    className="d-flex justify-content-between align-items-center"
+  >
+    <button
+      className="btn btn-link"
+      onClick={[Function]}
+    >
+      <i
+        className="fa fa-plus"
+      />
+    </button>
+    <div
+      onClick={[Function]}
+    >
+      1
+    </div>
+    <div
+      className="popover-component"
+    >
+      <div
+        className="trigger"
+        onClick={[Function]}
+      >
+        <button
+          className="btn btn-link"
+        >
+          <i
+            className="fa fa-bars"
+          />
+        </button>
+      </div>
+      <div
+        className="popover-content border rounded"
+        style={
+          Object {
+            "width": "200px",
+          }
+        }
+      >
+        <div
+          className="list-group list-group-flush"
+        >
+          <button
+            className="list-group-item list-group-item-action"
+          >
+            左移
+          </button>
+          <button
+            className="list-group-item list-group-item-action"
+          >
+            右移
+          </button>
+          <button
+            className="list-group-item list-group-item-action"
+          >
+            时间先后排序
+          </button>
+          <button
+            className="list-group-item list-group-item-action"
+          >
+            时间先后逆序
+          </button>
+          <button
+            className="list-group-item list-group-item-action"
+          >
+            优先级排序
+          </button>
+          <button
+            className="list-group-item list-group-item-action list-group-item-danger"
+            onClick={[Function]}
+          >
+            清空列表
+          </button>
+          <button
+            className="list-group-item list-group-item-action list-group-item-danger"
+            onClick={[Function]}
+          >
+            删除列表
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="cards-container"
+    onDragOver={[Function]}
+    onDrop={[Function]}
+  />
+</div>
+`;
